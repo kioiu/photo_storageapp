@@ -1,0 +1,18 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Sessions</p>
+    <h1>撮影セッション</h1>
+  </div>
+</section>
+
+<section class="session-list">
+  <% @photo_sessions.each do |session| %>
+    <%= link_to photo_session_path(session), class: 'panel session-row' do %>
+      <div>
+        <h2><%= session.title %></h2>
+        <p><%= jst_datetime(session.started_at) %> / <%= session.gps? ? 'GPSあり' : '撮影日時で分類' %></p>
+      </div>
+      <strong><%= session.photos.size %>枚</strong>
+    <% end %>
+  <% end %>
+</section>

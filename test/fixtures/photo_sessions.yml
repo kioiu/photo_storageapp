@@ -1,0 +1,15 @@
+one:
+  user: one
+  title: Morning Walk
+  started_at: 2026-06-12 09:00:00
+  latitude: 35.6812
+  longitude: 139.7671
+  classification: gps
+
+two:
+  user: two
+  title: Date Session
+  started_at: 2026-06-11 00:00:00
+  latitude:
+  longitude:
+  classification: date

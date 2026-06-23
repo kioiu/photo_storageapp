@@ -1,0 +1,41 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Library</p>
+    <h1>フォルダ一覧</h1>
+  </div>
+  <%= link_to '写真をアップロード', new_photo_path, class: 'primary-link' %>
+</section>
+
+<% if @photo_sessions.any? %>
+  <section class="folder-list" aria-label="フォルダ一覧">
+    <% @photo_sessions.each do |session| %>
+      <% thumbnail = session.thumbnail_photo %>
+      <% range_start, range_end = session.captured_time_range %>
+      <%= link_to photo_session_path(session), class: 'folder-row' do %>
+        <div class="folder-row-thumb" aria-label="サムネイル">
+          <% if thumbnail&.image&.attached? %>
+            <%= image_tag thumbnail.image %>
+          <% else %>
+            <span>NO IMAGE</span>
+          <% end %>
+        </div>
+
+        <div class="folder-row-main">
+          <h2><%= session.title %></h2>
+          <p><%= jst_datetime_range(range_start, range_end) %></p>
+        </div>
+
+        <div class="folder-row-summary">
+          <span class="folder-badge"><%= session.photos.size %>枚</span>
+          <span class="folder-badge <%= session.classification_badge_class %>"><%= session.classification_label %></span>
+        </div>
+      <% end %>
+    <% end %>
+  </section>
+<% else %>
+  <section class="empty-state">
+    <h2>まだフォルダがありません</h2>
+    <p>まずは写真をアップロードして撮影フォルダを作りましょう。</p>
+    <%= link_to 'アップロードへ', new_photo_path, class: 'primary-link' %>
+  </section>
+<% end %>

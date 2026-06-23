@@ -1,0 +1,32 @@
+<section class="detail-layout">
+  <div class="photo-stage">
+    <%= image_tag @photo.image if @photo.image.attached? %>
+  </div>
+
+  <aside class="panel metadata-panel">
+    <p class="eyebrow">EXIF</p>
+    <dl class="metadata-list">
+      <dt>撮影日時</dt><dd><%= jst_datetime(@photo.captured_at) || '-' %></dd>
+      <dt>カメラ</dt><dd><%= @photo.camera.presence || '-' %></dd>
+      <dt>レンズ</dt><dd><%= @photo.lens.presence || '-' %></dd>
+      <dt>ISO</dt><dd><%= @photo.iso.presence || '-' %></dd>
+      <dt>F値</dt><dd><%= @photo.aperture.presence || '-' %></dd>
+      <dt>シャッタースピード</dt><dd><%= @photo.shutter_speed.presence || '-' %></dd>
+      <dt>焦点距離</dt><dd><%= @photo.focal_length.presence || '-' %></dd>
+      <dt>分類</dt><dd><%= link_to @photo.photo_session.title, photo_session_path(@photo.photo_session) %></dd>
+      <dt>位置情報</dt><dd><%= @photo.inherited_session_location? ? 'フォルダの位置情報' : (@photo.display_location? ? '写真の位置情報' : '-') %></dd>
+    </dl>
+
+    <% if @photo.display_location? %>
+      <% latitude = @photo.display_latitude.to_f %>
+      <% longitude = @photo.display_longitude.to_f %>
+      <div class="map-frame">
+        <iframe title="map" src="https://www.openstreetmap.org/export/embed.html?bbox=<%= longitude - 0.01 %>,<%= latitude - 0.01 %>,<%= longitude + 0.01 %>,<%= latitude + 0.01 %>&layer=mapnik&marker=<%= latitude %>,<%= longitude %>"></iframe>
+      </div>
+    <% end %>
+
+    <div class="danger-zone">
+      <%= button_to 'この写真を削除', photo_path(@photo), method: :delete, class: 'danger-button wide', form: { data: { delete_dialog: true, delete_dialog_title: '写真を削除しますか？', delete_dialog_message: '写真とEXIF情報を削除します。この操作は取り消せません。' } } %>
+    </div>
+  </aside>
+</section>

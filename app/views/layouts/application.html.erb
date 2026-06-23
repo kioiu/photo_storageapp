@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Photo Portfolio</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', 'data-turbo-track': 'reload' %>
+    <%= javascript_include_tag 'delete_dialog', defer: true %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <header class="topbar">
+      <%= link_to 'Photo Portfolio', root_path, class: 'brand' %>
+      <nav>
+        <% if logged_in? %>
+          <%= link_to '写真', photos_path %>
+          <%= link_to 'アップロード', new_photo_path %>
+          <%= link_to '撮影セッション', photo_sessions_path %>
+          <%= link_to '設定', edit_settings_path %>
+          <%= button_to 'ログアウト', logout_path, method: :delete, class: 'link-button' %>
+        <% else %>
+          <%= link_to 'ログイン', login_path %>
+          <%= link_to 'ユーザー登録', new_user_path %>
+        <% end %>
+      </nav>
+    </header>
+
+    <main class="page">
+      <% flash.each do |type, message| %>
+        <p class="flash <%= type %>"><%= message %></p>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

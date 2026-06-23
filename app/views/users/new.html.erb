@@ -1,0 +1,27 @@
+<section class="form-page">
+  <div class="panel form-panel">
+    <h1>ユーザー登録</h1>
+    <%= form_with model: @user, class: 'stack' do |form| %>
+      <% if @user.errors.any? %>
+        <div class="flash alert"><%= @user.errors.full_messages.to_sentence %></div>
+      <% end %>
+      <label>
+        名前
+        <%= form.text_field :name, required: true %>
+      </label>
+      <label>
+        メールアドレス
+        <%= form.email_field :email, required: true, autocomplete: 'email' %>
+      </label>
+      <label>
+        パスワード
+        <%= form.password_field :password, required: true, autocomplete: 'new-password' %>
+      </label>
+      <label>
+        パスワード確認
+        <%= form.password_field :password_confirmation, required: true, autocomplete: 'new-password' %>
+      </label>
+      <%= form.submit '登録する', class: 'primary-button' %>
+    <% end %>
+  </div>
+</section>

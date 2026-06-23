@@ -1,0 +1,18 @@
+<section class="form-page">
+  <div class="panel form-panel wide">
+    <h1>写真アップロード</h1>
+    <%= form_with url: photos_path, multipart: true, class: 'stack' do |form| %>
+      <label>
+        写真ファイル
+        <%= file_field_tag 'images[]', multiple: true, accept: 'image/jpeg,image/png,image/heic,image/heif', required: true %>
+        <span class="form-hint">ShiftキーやCommandキーを使って複数枚まとめて選択できます。</span>
+      </label>
+      <label>
+        フォルダ名
+        <%= form.text_field :photo_session_title, placeholder: '例: 益子 春の撮影', autocomplete: 'off' %>
+      </label>
+      <p class="form-hint">位置情報入りの写真がある場合、この名前で撮影セッションを作成します。</p>
+      <%= form.submit 'アップロードしてEXIF取得', class: 'primary-button' %>
+    <% end %>
+  </div>
+</section>

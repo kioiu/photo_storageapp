@@ -1,0 +1,32 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow"><%= @photo_session.gps? ? 'GPS session' : 'Date session' %></p>
+    <h1><%= @photo_session.title %></h1>
+  </div>
+</section>
+
+<% if @photo_session.display_location? %>
+  <% latitude = @photo_session.display_latitude.to_f %>
+  <% longitude = @photo_session.display_longitude.to_f %>
+  <section class="map-frame large">
+    <iframe title="map" src="https://www.openstreetmap.org/export/embed.html?bbox=<%= longitude - 0.02 %>,<%= latitude - 0.02 %>,<%= longitude + 0.02 %>,<%= latitude + 0.02 %>&layer=mapnik&marker=<%= latitude %>,<%= longitude %>"></iframe>
+  </section>
+<% end %>
+
+<section class="photo-grid compact">
+  <% @photos.each do |photo| %>
+    <article class="photo-card">
+      <%= link_to photo_path(photo), class: 'photo-card-link' do %>
+        <%= image_tag photo.image if photo.image.attached? %>
+        <div class="photo-card-body">
+          <h2><%= photo.display_title %></h2>
+          <p><%= [photo.camera, photo.lens].compact_blank.join(' / ').presence || '機材情報なし' %></p>
+          <p><%= photo.display_location? ? (photo.inherited_session_location? ? 'フォルダの位置情報' : '写真の位置情報') : '位置情報なし' %></p>
+        </div>
+      <% end %>
+      <div class="photo-card-actions">
+        <%= button_to '削除', photo_path(photo), method: :delete, class: 'danger-button', form: { data: { delete_dialog: true, delete_dialog_title: '写真を削除しますか？', delete_dialog_message: '写真とEXIF情報を削除します。この操作は取り消せません。' } } %>
+      </div>
+    </article>
+  <% end %>
+</section>
