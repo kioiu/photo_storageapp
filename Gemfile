@@ -65,4 +65,4 @@ gem "bcrypt", "~> 3.1.7"
 
 gem "exifr", "~> 1.4"
 
-gem "minitest", "~> 5.25"
+gem "minitest", "~> 6.0"
