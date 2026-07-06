@@ -12,7 +12,7 @@ class SamplePortfolioBuilderTest < ActiveSupport::TestCase
     builder = SamplePortfolioBuilder.new(user)
 
     assert_difference -> { user.photo_sessions.count }, 5 do
-      assert_difference -> { user.photos.count }, 5 do
+      assert_difference -> { user.photos.count }, 10 do
         builder.ensure!
       end
     end

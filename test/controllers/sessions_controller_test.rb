@@ -12,7 +12,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     guest = User.find_by!(email: User::PORTFOLIO_GUEST_EMAIL)
     assert_equal 5, guest.photo_sessions.count
-    assert_equal 5, guest.photos.count
+    assert_equal 10, guest.photos.count
     assert guest.photos.all? { |photo| photo.image.attached? }
 
     post logout_url
@@ -20,6 +20,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     guest.reload
     assert_equal 5, guest.photo_sessions.count
-    assert_equal 5, guest.photos.count
+    assert_equal 10, guest.photos.count
   end
 end
