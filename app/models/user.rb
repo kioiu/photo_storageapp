@@ -12,19 +12,25 @@ class User < ApplicationRecord
   validates :folder_distance_km, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
 
   DEFAULT_FOLDER_DISTANCE_KM = 3.0
+  PORTFOLIO_GUEST_EMAIL = 'portfolio-guest@example.local'
 
   def folder_distance_km_value
     folder_distance_km.presence || DEFAULT_FOLDER_DISTANCE_KM
   end
 
   def self.create_guest!
-    timestamp = Time.current.to_i
+    user = portfolio_guest!
+    SamplePortfolioBuilder.new(user).ensure!
+    user
+  end
 
-    create!(
-      name: 'Guest',
-      email: "guest-#{timestamp}-#{SecureRandom.hex(4)}@example.local",
-      password: SecureRandom.urlsafe_base64(18),
-      guest: true
-    )
+  def self.portfolio_guest!
+    find_or_create_by!(email: PORTFOLIO_GUEST_EMAIL) do |user|
+      user.name = 'Portfolio Guest'
+      user.password = SecureRandom.urlsafe_base64(18)
+      user.guest = true
+    end.tap do |user|
+      user.update!(name: 'Portfolio Guest', guest: true) unless user.name == 'Portfolio Guest' && user.guest?
+    end
   end
 end
