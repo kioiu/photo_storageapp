@@ -95,3 +95,41 @@ body.modal-open { overflow: hidden; }
   .folder-row-summary { grid-column: 2; justify-content: flex-start; min-width: 0; }
   .folder-badge { min-height: 28px; font-size: .84rem; }
 }
+
+/* Larger portfolio presentation sizing */
+body { font-size: 17px; }
+.topbar { padding: 22px clamp(18px, 3.4vw, 48px); }
+.brand { font-size: 1.08rem; }
+.topbar nav { gap: 20px; font-size: 1rem; }
+.page { width: min(1480px, calc(100% - 32px)); padding: 42px 0 80px; }
+.flash { padding: 16px 18px; font-size: 1.05rem; }
+.eyebrow { font-size: .86rem; }
+.page-header { margin-bottom: 30px; }
+.page-header h1 { font-size: clamp(2.6rem, 4.4vw, 4rem); }
+.primary-button, .secondary-button, .primary-link { min-height: 52px; padding: 0 22px; font-size: 1rem; }
+.photo-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+.photo-grid.compact { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.photo-card-body { padding: 18px; gap: 8px; }
+.photo-card-body h2 { font-size: 1.22rem; }
+.metadata-panel { font-size: 1.05rem; }
+.metadata-list { grid-template-columns: 150px 1fr; gap: 12px 18px; }
+.folder-list { gap: 16px; }
+.folder-row { min-height: 138px; grid-template-columns: 170px minmax(0, 1fr) auto; gap: 26px; padding: 20px 24px; border-left-width: 5px; }
+.folder-row-thumb { width: 170px; height: 106px; font-size: .85rem; }
+.folder-row-main { gap: 10px; }
+.folder-row-main h2 { font-size: 1.28rem; }
+.folder-row-main h2::before { width: 10px; height: 10px; margin-right: 10px; }
+.folder-row-main p { font-size: 1.05rem; line-height: 1.55; }
+.folder-row-summary { min-width: 190px; gap: 10px; }
+.folder-badge { min-height: 36px; padding: 0 14px; font-size: 1rem; }
+
+@media (max-width: 860px) {
+  body { font-size: 16px; }
+  .page { width: min(100% - 24px, 1480px); padding-top: 30px; }
+  .folder-row { min-height: 120px; grid-template-columns: 124px minmax(0, 1fr); gap: 14px 16px; padding: 16px 18px; }
+  .folder-row-thumb { width: 124px; height: 86px; }
+  .folder-row-main h2 { font-size: 1.16rem; }
+  .folder-row-main p { font-size: .98rem; }
+  .folder-badge { min-height: 32px; font-size: .92rem; }
+}
+
