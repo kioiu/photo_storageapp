@@ -270,7 +270,9 @@ class SamplePortfolioBuilder
   end
 
   def attach_image(photo, filename)
-    return if photo.image.attached?
+    return if sample_image_available?(photo)
+
+    photo.image.purge if photo.image.attached?
 
     image_path = SAMPLE_IMAGE_DIR.join(filename)
     photo.image.attach(
@@ -278,5 +280,11 @@ class SamplePortfolioBuilder
       filename: filename,
       content_type: 'image/png'
     )
+  end
+
+  def sample_image_available?(photo)
+    photo.image.attached? && photo.image.blob.service.exist?(photo.image.blob.key)
+  rescue ActiveStorage::FileNotFoundError
+    false
   end
 end
