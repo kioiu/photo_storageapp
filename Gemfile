@@ -27,7 +27,7 @@ gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :production do
-  gem "pg", "~> 1.5"
+  gem "pg", "~> 1.7"
 end
 
 # Reduces boot times through caching; required in config/boot.rb
